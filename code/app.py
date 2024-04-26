@@ -66,11 +66,13 @@ def get_bounding_box(image, dir):
     # Get the bounding box of the maximum area contour
     x, y, w, h = cv2.boundingRect(max_contour)
 
-    image_path = os.path.join(dir, 'bounding_box.png')
+    # Get the image name
+    image_name = str(image).split('/')[-1] + 'bounding_box.png'
+    image_path = os.path.join(dir, image_name)
 
     if not os.path.exists(image_path):
-        cv2.imwrite(os.path.join(dir, 'bounding_box.png'), cv2.rectangle(image.copy(), (x, y), (x+w, y+h), (0, 255, 0), 2))
-        st.image(os.path.join(dir, 'bounding_box.png'), caption="Bounding Box", use_column_width=True)
+        cv2.imwrite(os.path.join(dir, image_name), cv2.rectangle(image.copy(), (x, y), (x+w, y+h), (0, 255, 0), 2))
+        st.image(os.path.join(dir, image_name), caption="Bounding Box", use_column_width=True)
     return (x, y, x+w, y+h)
 
 def segement_words(image, dir):
